@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box{
+            width:200px;
+            height: 200px;
+            background: red;
+            border: 1px solid #000000;
+        }
+    </style>
+</head>
+<body>
+    <div id="box" style="width: 200px">
+
+    </div>
+
+    <script>
+        window.onload = function(){
+            var box = document.getElementById('box');
+
+            startMove();
+            alert(getStyle(box, 'width'));
+
+        }
+
+        function startMove(){
+            var box = document.getElementById('box');
+            setInterval(function(){
+                box.style.width = parseInt(getStyle(box, 'width')) - 1 + 'px';
+            }, 30);
+        }
+
+        //注意，添加参数时要价引号
+        function getStyle(obj, attr){
+            if(obj.currentStyle){
+                return obj.currentStyle[attr];
+            }else{
+                return getComputedStyle(obj, false)[attr];
+            }
+        }
+
+    </script>
+</body>
+</html>

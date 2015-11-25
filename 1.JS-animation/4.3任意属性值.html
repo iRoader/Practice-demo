@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul, li{
+            list-style: none;
+        }
+        li{
+            width: 200px;
+            height: 100px;
+            background-color: #2732ff;
+            margin: 20px 0;
+            filter: alpha(opacity:30);
+            opacity: 0.3;
+        }
+        #li2{
+            width: 200px;
+            height: 100px;
+            background-color: #2732ff;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li id="li1"></li>
+    <div id="li2"></div>
+</ul>
+
+<script>
+    window.onload = function(){
+        var aLi1 = document.getElementById('li1');
+        var aLi2 = document.getElementById('li2');
+
+        aLi1.onmouseover = function(){
+            startMove(this, 'opacity', 100);
+            startMove(this, 'width', 400)
+
+        }
+        aLi1.onmouseout = function(){
+            startMove(this,'opacity', 30)
+            startMove(this,'width', 200)
+
+        }
+
+        aLi2.onmouseover = function(){
+            startMove(this, 'width', 400)
+            startMove(this, 'height', 400)
+        }
+        aLi2.onmouseout = function(){
+            startMove(this,'width', 200)
+            startMove(this,'height', 100)
+        }
+
+    }
+
+    //        var timer = null;
+//            var alpha = 30;
+    function startMove(obj, attr, iTarget){
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function(){
+            var icurrent = 0;
+            if(attr == 'opacity'){
+                icurrent = Math.round(parseFloat(getStyle(obj, attr))*100);
+            }else{
+                var icurrent = parseInt(getStyle(obj, attr))
+            }
+
+            var speed = (iTarget - icurrent)/10;
+            speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+
+            if(icurrent == iTarget){
+                clearInterval(obj.timer);
+            }else{
+                if(attr == 'opacity'){
+                    obj.style.filter = 'alpha(opacity:' + (icurrent+speed) + ')';
+                    obj.style.opacity = (icurrent + speed)/100;
+                }else{
+                    obj.style[attr] = icurrent + speed + 'px';
+                }
+            }
+        }, 30)
+    }
+
+    function getStyle(obj, attr){
+        if(obj.currentStyle){
+            return obj.currentStyle[attr];
+        }else{
+            return getComputedStyle(obj, false)[attr];
+        }
+    }
+</script>
+</body>
+</html>

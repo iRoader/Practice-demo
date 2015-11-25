@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!--<script src="monkey.js"></script>-->
+    <style>
+        #div1{
+            position: fixed;
+            left: -200px;
+            top: 0;
+            width: 200px;
+            height: 200px;
+            background: #00ffff;
+        }
+        #div1 span{
+            width: 20px;
+            padding-top: 16px;
+            height: 56px;
+            background: #e78498;
+            position: absolute;
+            left: 200px;
+            top: 75px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    <span id="share">分享</span>
+</div>
+
+<script>
+    window.onload = function(){
+        var share = document.getElementById('share');
+        var div1 = document.getElementById('div1');
+
+        div1.onmouseover = function(){
+            startMove(0);
+        }
+        div1.onmouseout = function(){
+            startMove(-200);
+        }
+    }
+    alert(Math.ceil(-4.6))
+    var timer = null;
+    function startMove(iTarget){
+        clearInterval(timer);
+        var div1 = document.getElementById('div1');
+
+        timer = setInterval(function(){
+//            让 speed 的值不断减小
+            var speed = (iTarget - div1.offsetLeft)/10;
+            speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+            if(div1.offsetLeft == iTarget){
+                clearInterval(timer);
+            }else{
+                div1.style.left = div1.offsetLeft + speed + 'px';
+            }
+        }, 30)
+    }
+</script>
+</body>
+</html>

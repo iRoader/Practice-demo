@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="monkey.js"></script>
+    <style>
+        #box{
+            width: 200px;
+            height: 200px;
+            background: #e78498;
+            border: 5px solid #00ffff;
+            filter: alpha(opacity:30);
+            opacity: 0.3;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+
+
+    <script>
+        window.onload = function(){
+            var box = document.getElementById('box');
+
+            box.onmouseover = function(){
+                startMove(box, 'width', 400, function(){
+                    startMove(box, 'height', 400, function(){
+                        startMove(box, 'opacity', 100)
+                    })
+                });
+            }
+
+            box.onmouseout = function(){
+                startMove(box, 'opacity', 30, function(){
+                    startMove(box, 'height', 100, function(){
+                        startMove(box, 'width', 200)
+                    })
+                });
+            }
+        }
+    </script>
+</body>
+</html>

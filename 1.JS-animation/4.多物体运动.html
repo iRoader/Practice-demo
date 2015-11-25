@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul, li{
+            list-style: none;
+        }
+        li{
+            width: 200px;
+            height: 100px;
+            background-color: #00ffff;
+            margin: 20px 0;
+            filter: alpha(opacity:30);
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+<script>
+    window.onload = function(){
+        var aLi = document.getElementsByTagName('li');
+        for(var i = 0; i < aLi.length; i++){
+            aLi[i].timer = null;
+            aLi[i].alpha = 30;
+            aLi[i].onmouseover = function(){
+                startMove(this, 400);
+            }
+            aLi[i].onmouseout = function(){
+                startMove(this, 200);
+            }
+        }
+
+//        var timer = null;
+//        var alpha = 30;
+        function startMove(obj, iTarget){
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function(){
+                var speed = (iTarget - obj.offsetWidth)/8;
+                speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+
+                if(obj.offsetWidth == iTarget){
+                    clearInterval(obj.timer);
+                }else{
+                    obj.alpha += speed;
+                    if(obj.alpha < 30) obj.alpha = 30;
+                    if(obj.alpha > 100) obj.alpha = 100
+                    obj.style.width = obj.offsetWidth + speed + "px";
+                    obj.style.height = obj.offsetHeight + speed + "px";
+                    obj.style.filter = 'alpha(opacity:' + obj.alpha + ')';
+                    obj.style.opacity = obj.alpha/100;
+                }
+            }, 30)
+        }
+    }
+</script>
+</body>
+</html>
